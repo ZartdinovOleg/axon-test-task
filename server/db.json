@@ -1,0 +1,28 @@
+{
+  "productTypes": [
+    {
+      "id": "2Pj88FE",
+      "packsNumber": 12,
+      "packageType": "некомпрессия",
+      "isArchived": false,
+      "createdAt": "2024-01-25T16:08:24.630Z"
+    },
+    {
+      "id": "3s-oN_s",
+      "packsNumber": 20,
+      "packageType": "компрессия",
+      "isArchived": false,
+      "description": "Описание продукции\nВ несколько строк",
+      "createdAt": "2024-01-23T16:08:24.630Z"
+    },
+    {
+      "id": "ae77355a-92a5-4b9e-9f46-b3acbebd66bf",
+      "updatedAt": "2025-03-06T04:36:29.653Z",
+      "createdAt": "2025-03-06T04:36:24.139Z",
+      "packsNumber": "222",
+      "packageType": "compression",
+      "isArchived": true,
+      "description": "222new"
+    }
+  ]
+}
