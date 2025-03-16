@@ -26,6 +26,11 @@
 	margin-top: 40px
 }
 
+.updated {
+	font-style: italic;
+	font-size: 10px;
+}
+
 .tableActions {
 	display: flex;
 	gap: 10px;

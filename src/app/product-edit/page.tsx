@@ -1,15 +1,17 @@
 'use client'
-import styles from "./page.module.css";
 import Link from "next/link";
-import { useForm } from 'react-hook-form'
-import { editProductsFromAPI } from "@/redux/slices/productsSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useAppDispatch, useAppSelector } from '../hooks'
 import { useRouter, useSearchParams } from 'next/navigation';
-import { deleteProductsFromAPI } from "@/redux/slices/productsSlice";
 import { useState } from "react";
 import Modal from 'react-modal';
+// icons
 import { ImCancelCircle } from "react-icons/im";
 import { GiConfirmed } from "react-icons/gi";
+//
+import styles from "./page.module.css";
+import { editProductsFromAPI, deleteProductsFromAPI } from "@/redux/slices/productsSlice";
+import { TypeProduct } from "@/types/Product";
 
 export default function Page() {
 	const router = useRouter();
@@ -20,9 +22,9 @@ export default function Page() {
 	//
 
 	// Modal
-	const [modalIsOpen, setModalIsOpen] = useState(false); // Modal window
+	const [modalIsOpen, setModalIsOpen] = useState<boolean>(false); // Modal window
 
-	const openModal = () => {
+	const openModal = (id: string) => {
 		setModalIsOpen(true);
 	};
 
@@ -41,18 +43,20 @@ export default function Page() {
 	);
 	// Modal end
 
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
-	const handleDeleteProduct = (id) => {
-		dispatch(deleteProductsFromAPI(id))
-		router.push('/');
+	const handleDeleteProduct = (id: string | null) => {
+		if (id) {
+			dispatch(deleteProductsFromAPI(id))
+			router.push('/');
+		}
 	}
 
-	const products = useSelector((state) => state.products.products)
+	const products = useAppSelector((state) => state.products.products)
 
-	const { register, handleSubmit, setValue, getValues, formState: { errors } } = useForm();
+	const { register, handleSubmit, setValue, getValues, formState: { errors } } = useForm<TypeProduct>();
 
-	const editingProduct = products.find(product => product.id === id)
+	const editingProduct: TypeProduct = products.find(product => product.id === id)
 
 	if (editingProduct) {
 		setValue('packsNumber', editingProduct.packsNumber)
@@ -61,7 +65,7 @@ export default function Page() {
 		setValue('description', editingProduct.description)
 	}
 
-	const onSubmit = (data) => {
+	const onSubmit: SubmitHandler<TypeProduct> = (data) => {
 		if (data.packageType && data.packsNumber) {
 			data.packageType = getValues('packageType')
 			data.packsNumber = getValues('packsNumber')
@@ -69,7 +73,7 @@ export default function Page() {
 			data.description = getValues('description')
 			data.createdAt = editingProduct.createdAt
 			const updatedData = { ...data, id, updatedAt: new Date().toISOString() };
-			console.log(updatedData)
+
 			dispatch(editProductsFromAPI(updatedData));
 		}
 		router.push('/');

@@ -2,21 +2,22 @@
 //
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation';
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from '../hooks'
 //
 import styles from "./page.module.css";
 import Link from "next/link";
 import { addProductsFromAPI } from '../../redux/slices/productsSlice'
+import { TypeProduct } from '@/types/Product';
 
 
 export default function Page() {
 	const router = useRouter();
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
-	const { register, handleSubmit, formState: { errors } } = useForm({
+	const { register, handleSubmit, formState: { errors } } = useForm<TypeProduct>({
 		defaultValues: {
 			id: '',
-			packsNumber: '',
+			packsNumber: null,
 			packageType: 'compression',
 			isArchived: true,
 			description: '',
@@ -25,7 +26,7 @@ export default function Page() {
 	}
 	);
 
-	const onSubmit = data => {
+	const onSubmit = (data: TypeProduct) => {
 		if (data.packageType && data.packsNumber) {
 			dispatch(addProductsFromAPI(data))
 		}
@@ -69,7 +70,7 @@ export default function Page() {
 							<label htmlFor="description">
 								Description
 							</label>
-							<textarea id="description" rows={3} {...register("description")}>
+							<textarea id="description" placeholder="Add description" rows={3} {...register("description")}>
 							</textarea>
 						</div>
 
