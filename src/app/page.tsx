@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 import { useState, useEffect } from "react";
 import Modal from 'react-modal';
-import { useRouter } from "next/navigation";
 // icons
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -18,8 +17,6 @@ import { deleteProductsFromAPI, getProductsFromAPI } from "../redux/slices/produ
 import { useAppDispatch, useAppSelector } from './hooks'
 
 export default function Home() {
-	const router = useRouter();
-
 	// Modal
 	const [modalIsOpen, setModalIsOpen] = useState<boolean | null>(false); // Modal window
 	const [selectedProductId, setSelectedProductId] = useState<string | null>();
@@ -118,7 +115,7 @@ export default function Home() {
 											<ReactTooltip
 												id={`description-tooltip-${product.id}`}
 												place="left"
-												// @ts-ignore 
+												// @ts-expect-error
 												content={product.description || <p>No description available</p>}
 												opacity={1}
 												style={{ fontSize: '14px', width: '200px' }}
