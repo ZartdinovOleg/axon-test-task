@@ -124,7 +124,7 @@ export default function Page() {
 
 				</div>
 				<div className={styles.buttons}>
-					<button className={styles.buttonDelete} onClick={() => id && openModal(id)}>Delete</button>
+					<button className={styles.buttonDelete} onClick={() => openModal()}>Delete</button>
 					<Link href={'/'}><button className={styles.buttonCancel}>Cancel</button ></Link>
 					<button form='product-form' type='submit' className={styles.buttonAdd}>Save</button>
 				</div>
