@@ -24,7 +24,7 @@ export default function Page() {
 	// Modal
 	const [modalIsOpen, setModalIsOpen] = useState<boolean>(false); // Modal window
 
-	const openModal = (id: string) => {
+	const openModal = () => {
 		setModalIsOpen(true);
 	};
 

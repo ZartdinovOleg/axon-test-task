@@ -25,7 +25,7 @@ export default function Home() {
 		setSelectedProductId(id);
 		setModalIsOpen(true); // Set the selected product id
 	};
-	``
+
 	const closeModal = () => {
 		setModalIsOpen(false);
 	};
@@ -115,7 +115,7 @@ export default function Home() {
 											<ReactTooltip
 												id={`description-tooltip-${product.id}`}
 												place="left"
-												// @ts-expect-error
+												// @ts-expect-error typescript doesn't understand 
 												content={product.description || <p>No description available</p>}
 												opacity={1}
 												style={{ fontSize: '14px', width: '200px' }}

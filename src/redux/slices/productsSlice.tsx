@@ -122,7 +122,7 @@ const productsSlice = createSlice({
 					// state.products.find[(product => product.index === index)] = action.payload
 				}
 			})
-			.addMatcher(isError, (state, action: PayloadAction<string>) => {
+			.addMatcher(isError, (state) => {
 				state.error = 'error'
 				state.status = "rejected"
 			})
