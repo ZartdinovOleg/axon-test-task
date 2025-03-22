@@ -75,5 +75,11 @@
 }
 
 .errorloading {
+	color: white;
 	margin-bottom: 15px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: lawngreen;
+	padding: 5px 10px;
 }

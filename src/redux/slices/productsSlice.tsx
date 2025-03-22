@@ -87,7 +87,6 @@ const productsSlice = createSlice({
 		builder
 			/// Get the products from server
 			.addCase(getProductsFromAPI.pending, (state) => {
-				state.status = 'loading'
 				state.error = null
 			})
 			.addCase(getProductsFromAPI.fulfilled, (state, action) => {
@@ -97,6 +96,7 @@ const productsSlice = createSlice({
 			})
 			/// Add the product to server
 			.addCase(addProductsFromAPI.pending, (state) => {
+				state.status = 'loading'
 				state.error = null
 			})
 			.addCase(addProductsFromAPI.fulfilled, (state, action) => {
@@ -105,6 +105,7 @@ const productsSlice = createSlice({
 			})
 			/// Delete the product from server
 			.addCase(deleteProductsFromAPI.pending, (state) => {
+				state.status = 'loading'
 				state.error = null
 			})
 			.addCase(deleteProductsFromAPI.fulfilled, (state, action) => {
@@ -114,6 +115,7 @@ const productsSlice = createSlice({
 			/// Edit the product on server
 			.addCase(editProductsFromAPI.pending, (state) => {
 				state.error = null
+				state.status = 'loading'
 			})
 			.addCase(editProductsFromAPI.fulfilled, (state, action) => {
 				state.status = 'succeeded'

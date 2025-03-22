@@ -66,8 +66,7 @@ export default function Home() {
 		}
 	}
 
-	// const { status, error } = useAppSelector(state => state.products)
-	const { error } = useAppSelector(state => state.products)
+	const { status, error } = useAppSelector(state => state.products)
 
 	useEffect(() => {
 		dispatch(getProductsFromAPI());
@@ -84,7 +83,7 @@ export default function Home() {
 
 			{error && <h2>Something went wrong...</h2>}
 
-			{/* {status === 'loading' && <h2 className={styles.errorloading}>Loading...</h2>} */}
+			{status === 'loading' && <h2 className={styles.errorloading}>Processing your request...</h2>}
 
 			{products.length === 0 ? <p className={styles.noProductsFound}>Loading...</p> : (
 				<div className={styles.productionTable}>
