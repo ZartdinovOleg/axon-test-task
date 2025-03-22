@@ -66,7 +66,8 @@ export default function Home() {
 		}
 	}
 
-	const { status, error } = useAppSelector(state => state.products)
+	// const { status, error } = useAppSelector(state => state.products)
+	const { error } = useAppSelector(state => state.products)
 
 	useEffect(() => {
 		dispatch(getProductsFromAPI());
