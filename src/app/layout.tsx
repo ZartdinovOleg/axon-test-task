@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import 'normalize.css/normalize.css'
 import { StoreProvider } from "@/redux/StoreProvider";
+import { Suspense } from "react";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -28,7 +29,9 @@ export default function RootLayout({
 		<StoreProvider>
 			<html lang="en">
 				<body className={`${geistSans.variable} ${geistMono.variable}`}>
-					{children}
+					<Suspense>
+						{children}
+					</Suspense>
 				</body>
 			</html>
 		</StoreProvider>
