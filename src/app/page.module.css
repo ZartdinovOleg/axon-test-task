@@ -73,3 +73,7 @@
 	flex-direction: row;
 	justify-content: space-evenly;
 }
+
+.errorloading {
+	margin-bottom: 15px;
+}

@@ -81,10 +81,11 @@ export default function Home() {
 				<Link href={'/product-create'}><button className={styles.button}>Add new product</button ></Link>
 			</div>
 
-			{status === 'loading' && <h2>Loading...</h2>}
 			{error && <h2>Something went wrong...</h2>}
 
-			{products.length === 0 ? <p className={styles.noProductsFound}></p> : (
+			{/* {status === 'loading' && <h2 className={styles.errorloading}>Loading...</h2>} */}
+
+			{products.length === 0 ? <p className={styles.noProductsFound}>Loading...</p> : (
 				<div className={styles.productionTable}>
 					<table>
 						<thead>

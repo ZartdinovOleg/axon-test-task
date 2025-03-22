@@ -5,7 +5,7 @@ import { TypeProduct, ProductsState } from "@/types/Product";
 
 const initialState: ProductsState = {
 	products: [],
-	status: 'loading',
+	status: 'succeeded',
 	error: null
 }
 
@@ -116,6 +116,7 @@ const productsSlice = createSlice({
 				state.error = null
 			})
 			.addCase(editProductsFromAPI.fulfilled, (state, action) => {
+				state.status = 'succeeded'
 				const index = state.products.findIndex(product => product.id === action.payload.id);
 				if (index !== -1) {
 					state.products[index] = action.payload;
