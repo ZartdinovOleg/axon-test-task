@@ -9,11 +9,12 @@
     },
     {
       "id": "3s-oN_s",
-      "packsNumber": 20,
-      "packageType": "компрессия",
+      "updatedAt": "2025-03-22T07:03:10.362Z",
+      "createdAt": "2024-01-23T16:08:24.630Z",
+      "packsNumber": "20212",
+      "packageType": "compression",
       "isArchived": false,
-      "description": "Описание продукции\nВ несколько строк",
-      "createdAt": "2024-01-23T16:08:24.630Z"
+      "description": "Описание продукции\nВ несколько строк212"
     },
     {
       "id": "ae77355a-92a5-4b9e-9f46-b3acbebd66bf",
@@ -34,28 +35,12 @@
       "description": "122"
     },
     {
-      "id": "9e4fc6e9-a3db-4eac-9afa-ecf940cad376",
-      "createdAt": "2025-03-15T16:06:45.570Z",
-      "packsNumber": "2122",
-      "packageType": "compression",
-      "isArchived": true,
-      "description": "1212"
-    },
-    {
       "id": "0a6fc1d6-72de-4209-8923-d2f6c4cc95bd",
       "createdAt": "2025-03-15T16:07:00.370Z",
       "packsNumber": "212",
       "packageType": "compression",
       "isArchived": true,
       "description": "21212"
-    },
-    {
-      "id": "3c02d457-ee99-4fbc-9acd-933840663db0",
-      "createdAt": "2025-03-15T16:07:17.569Z",
-      "packsNumber": "12",
-      "packageType": "compression",
-      "isArchived": true,
-      "description": "12"
     },
     {
       "id": "dcee6c36-e78d-41cd-9b5e-367ac29da0d9",

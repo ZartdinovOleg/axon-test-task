@@ -56,7 +56,7 @@ export default function Page() {
 
 	const { register, handleSubmit, setValue, getValues, formState: { errors } } = useForm<TypeProduct>();
 
-	const editingProduct: TypeProduct = products.find(product => product.id === id)
+	const editingProduct = products.find(product => product.id === id)
 
 	if (editingProduct) {
 		setValue('packsNumber', editingProduct.packsNumber)
@@ -66,14 +66,13 @@ export default function Page() {
 	}
 
 	const onSubmit: SubmitHandler<TypeProduct> = (data) => {
-		if (data.packageType && data.packsNumber) {
-			data.packageType = getValues('packageType')
-			data.packsNumber = getValues('packsNumber')
-			data.isArchived = getValues('isArchived')
-			data.description = getValues('description')
-			data.createdAt = editingProduct.createdAt
-			const updatedData = { ...data, id, updatedAt: new Date().toISOString() };
-
+		if (data.packageType && data.packsNumber && id) {
+			data.packageType = getValues('packageType');
+			data.packsNumber = getValues('packsNumber');
+			data.isArchived = getValues('isArchived');
+			data.description = getValues('description');
+			data.createdAt = editingProduct?.createdAt || new Date().toISOString();
+			const updatedData: TypeProduct = { ...data, id, updatedAt: new Date().toISOString() };
 			dispatch(editProductsFromAPI(updatedData));
 		}
 		router.push('/');
@@ -125,7 +124,7 @@ export default function Page() {
 
 				</div>
 				<div className={styles.buttons}>
-					<button className={styles.buttonDelete} onClick={() => openModal(id)}>Delete</button>
+					<button className={styles.buttonDelete} onClick={() => id && openModal(id)}>Delete</button>
 					<Link href={'/'}><button className={styles.buttonCancel}>Cancel</button ></Link>
 					<button form='product-form' type='submit' className={styles.buttonAdd}>Save</button>
 				</div>

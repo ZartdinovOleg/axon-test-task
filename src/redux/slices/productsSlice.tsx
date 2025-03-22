@@ -9,16 +9,19 @@ const initialState: ProductsState = {
 	error: null
 }
 
-const API_URL = 'http://localhost:8000/productTypes/'
+// const API_URL = 'http://localhost:8000/productTypes/'
+const API_URL = 'https://d49sv2-8080.csb.app/productTypes/'
 
 export const getProductsFromAPI = createAsyncThunk<TypeProduct[], undefined, { rejectValue: string }>(
 	'products/getProductsFromAPI',
 	async function (_, { rejectWithValue }) {
 		const res = await axios.get(`${API_URL}`)
-		if (res.statusText !== 'OK') {
+		if (res.status !== 200) {
 			return rejectWithValue('Some error happened')
 		}
-		res.data.sort((a: TypeProduct, b: TypeProduct) => new Date(a.createdAt) - new Date(b.createdAt));
+		res.data.sort((a: TypeProduct, b: TypeProduct) =>
+			new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+		);
 		return res.data
 	}
 )
@@ -34,7 +37,7 @@ export const addProductsFromAPI = createAsyncThunk<TypeProduct, TypeProduct, { r
 			isArchived: data.isArchived,
 			description: data.description
 		})
-		if (res.statusText !== 'Created') {
+		if (res.status !== 201) {
 			return rejectWithValue('Some error happened')
 		}
 		return res.data as TypeProduct
@@ -45,7 +48,7 @@ export const deleteProductsFromAPI = createAsyncThunk<TypeProduct, string, { rej
 	'products/deleteProductsFromAPI',
 	async function (id, { rejectWithValue, }) {
 		const res = await axios.delete(`${API_URL}${id}`)
-		if (res.statusText !== 'Created') {
+		if (res.status !== 200) {
 			return rejectWithValue('Some error happened')
 		}
 		return res.data as TypeProduct
@@ -56,7 +59,7 @@ export const deleteProductsFromAPI = createAsyncThunk<TypeProduct, string, { rej
 export const editProductsFromAPI = createAsyncThunk<TypeProduct, TypeProduct, { rejectValue: string }>(
 	'products/editProductsFromAPI',
 	async function (updatedData, { rejectWithValue }) {
-		const res = await axios.put(`http://localhost:8000/productTypes/${updatedData.id}`, {
+		const res = await axios.put(`${API_URL}${updatedData.id}`, {
 			id: updatedData.id,
 			updatedAt: updatedData.updatedAt,
 			createdAt: updatedData.createdAt,
@@ -65,7 +68,7 @@ export const editProductsFromAPI = createAsyncThunk<TypeProduct, TypeProduct, { 
 			isArchived: updatedData.isArchived,
 			description: updatedData.description
 		})
-		if (res.statusText !== 'OK') {
+		if (res.status !== 200) {
 			return rejectWithValue('Some error happened')
 		}
 		return res.data as TypeProduct
@@ -89,6 +92,7 @@ const productsSlice = createSlice({
 			})
 			.addCase(getProductsFromAPI.fulfilled, (state, action) => {
 				state.status = 'succeeded'
+				state.error = null
 				state.products = action.payload
 			})
 			/// Add the product to server
@@ -114,7 +118,8 @@ const productsSlice = createSlice({
 			.addCase(editProductsFromAPI.fulfilled, (state, action) => {
 				const index = state.products.findIndex(product => product.id === action.payload.id);
 				if (index !== -1) {
-					state.products.find[(product => product.index === index)] = action.payload
+					state.products[index] = action.payload;
+					// state.products.find[(product => product.index === index)] = action.payload
 				}
 			})
 			.addMatcher(isError, (state, action: PayloadAction<string>) => {

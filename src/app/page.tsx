@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 import { useState, useEffect } from "react";
 import Modal from 'react-modal';
+import { useRouter } from "next/navigation";
 // icons
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -17,6 +18,7 @@ import { deleteProductsFromAPI, getProductsFromAPI } from "../redux/slices/produ
 import { useAppDispatch, useAppSelector } from './hooks'
 
 export default function Home() {
+	const router = useRouter();
 
 	// Modal
 	const [modalIsOpen, setModalIsOpen] = useState<boolean | null>(false); // Modal window
@@ -36,7 +38,12 @@ export default function Home() {
 			<h2>Do you really want to delete?</h2>
 			<div className={styles.buttonsModal}>
 				<button onClick={closeModal}><ImCancelCircle size={30} color='red' /></button>
-				<button onClick={() => { closeModal(); handleDeleteProduct(selectedProductId) }}><GiConfirmed size={30} color='green' /></button>
+				<button onClick={() => {
+					closeModal();
+					if (selectedProductId) {
+						handleDeleteProduct(selectedProductId);
+					}
+				}}><GiConfirmed size={30} color='green' /></button>
 			</div>
 		</div >
 	);
@@ -44,9 +51,21 @@ export default function Home() {
 
 	const dispatch = useAppDispatch()
 
+	// const handleDeleteProduct = (id: string) => {
+	// 	if (id) {
+	// 		dispatch(deleteProductsFromAPI(id))
+	// 	}
+	// }
+
 	const handleDeleteProduct = (id: string) => {
 		if (id) {
 			dispatch(deleteProductsFromAPI(id))
+				.then(() => {
+					dispatch(getProductsFromAPI());
+				})
+				.catch((error) => {
+					console.error('Error deleting product:', error);
+				});
 		}
 	}
 
